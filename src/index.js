@@ -55,6 +55,11 @@ var InputPassword = React.createClass({
             isValid: false
         };
     },
+
+    /** Added to allow password to be passed as prop passwordString
+     *  Updates the state with the new value of the password props
+     *  And starts the masking timeout, like on a normal input change
+     */
     componentWillReceiveProps(nextProps){
         this.setState({
 	    value: nextProps.passwordString
@@ -63,14 +68,6 @@ var InputPassword = React.createClass({
             this.handleToggleMask();
         }
     },
-
-    // shouldComponentUpdate(nextProps, nextState){
-    //     if(nextProps.passwordString !== this.props.passwordString || nextProps.passwordString !== this.state.value || nextState.value != this.state.value){
-    //         console.log(nextProps.passwordString !== this.props.passwordString || nextProps.passwordString !== this.state.value || nextState.value != this.state.value);
-    //         return true;
-    //     }
-    //     return false;
-    // },
 
   /*==========  STYLES  ==========*/
 
