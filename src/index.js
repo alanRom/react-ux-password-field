@@ -51,6 +51,7 @@ class InputPassword extends Component{
           top: 2,
       };
 
+      this.handleChange = this.handleChange.bind(this);
     }
 
     /*==========  LIFECYCLE METHODS  ==========*/
@@ -210,24 +211,27 @@ class InputPassword extends Component{
         }
 
         render() {
-            let infoBar;
+            let infoBarView;
 
-            if (this.props.infoBar) {
-                infoBar = <div className="passwordField__info" style={this.infoStyle}>
+            // allow onChange to be passed from parent and not override default prop
+            // and pick off rest of props to pass remainders into input
+            let {onChange, passwordString, strengthLang, infoBar, statusColor,
+              statusInactiveColor, zxcvbn, minScore, toggleMask,
+              unMaskTime, ...rest} = this.props;
+
+            if (infoBar) {
+                infoBarView = <div className="passwordField__info" style={this.infoStyle}>
             <span style={this.iconStyle} className="passwordField__icon">
             </span>
             <span style={this.getMeterStyle(this.state.score)} className="passwordField__meter" />
             <span style={this.strengthLangStyle} className="passwordField__strength">
-              {this.props.zxcvbn &&
+              {zxcvbn &&
                 this.state.value.length > 0 &&
-                this.props.strengthLang.length > 0 ?
-                  this.props.strengthLang[this.state.score] : null}
+                strengthLang.length > 0 ?
+                  strengthLang[this.state.score] : null}
             </span>
           </div>;
             }
-
-        // allow onChange to be passed from parent and not override default prop
-            let {onChange, ...props} = this.props;
 
         // overcome problem with firefox resetting the input selection point
             let that = this;
@@ -255,9 +259,9 @@ class InputPassword extends Component{
               value={this.state.value}
               style={this.state.isPassword ? null : this.unMaskStyle}
               onChange={this.handleChange}
-              {...props}
+              {...rest}
             />
-            {infoBar}
+            {infoBarView}
           </div>
             );
         }
