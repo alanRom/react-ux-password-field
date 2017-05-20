@@ -222,6 +222,7 @@ class InputPassword extends Component{
             if (infoBar) {
                 infoBarView = <div className="passwordField__info" style={this.infoStyle}>
             <span style={this.iconStyle} className="passwordField__icon">
+              <img src={require('./img/lock.png')} height="10" width="10"  />
             </span>
             <span style={this.getMeterStyle(this.state.score)} className="passwordField__meter" />
             <span style={this.strengthLangStyle} className="passwordField__strength">
